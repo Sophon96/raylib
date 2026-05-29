@@ -45,6 +45,10 @@
 *
 **********************************************************************************************/
 
+#include "rcore.h"
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_video.h>
+
 #ifdef USING_SDL3_PACKAGE
     #define USING_SDL3_PROJECT
 #endif
@@ -2068,8 +2072,11 @@ int InitPlatform(void)
         CORE.Window.display.width = displayMode.w;
         CORE.Window.display.height = displayMode.h;
 
-        CORE.Window.render.width = CORE.Window.screen.width;
-        CORE.Window.render.height = CORE.Window.screen.height;
+        int render_width, render_height;
+        SDL_GetWindowSizeInPixels(platform.window, &render_width, &render_height);
+
+        CORE.Window.render.width = render_width;
+        CORE.Window.render.height = render_height;
         CORE.Window.currentFbo.width = CORE.Window.render.width;
         CORE.Window.currentFbo.height = CORE.Window.render.height;
 
